@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const router = Router();
 const pool = require("../database/database.js"); // Enables querying w/ Postgres
+const e = require("express");
 
 // Index
 router.get("/", async (req, res) => {
@@ -29,6 +30,25 @@ router.post("/", async (req, res) => {
 
 		// Return the json data of the the todo that was just created
 		res.json(newTodo.rows[0]);
+	} catch (error) {
+		console.error(error.message);
+	}
+});
+
+// Update
+router.put("/:id", async (req, res) => {
+	try {
+		// Get the todo id from req.params
+		const { id } = req.params;
+
+		// Get the new todo information
+		const { todo } = req.body;
+
+		// Make a query to Postgres to update the given todo_id with the new information.
+		const updateTodo = await pool.query("UPDATE todo SET todo = $1 WHERE todo_id = $2", [todo, id]);
+
+		// Return the updated todo json data
+		res.json(todo);
 	} catch (error) {
 		console.error(error.message);
 	}
