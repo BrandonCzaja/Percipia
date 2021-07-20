@@ -20,6 +20,21 @@ const Todos = () => {
 		}
 	};
 
+	// Delete a Todo
+	const deleteTodo = async (id) => {
+		try {
+			// Get todo for deletion by id
+			const todo = await fetch(`http://localhost:3000/todos/${id}`, {
+				method: "DELETE"
+			});
+
+			// Returns all remaining todos
+			setTodos(todos.filter((todo) => todo.todo_id !== id));
+		} catch (error) {
+			console.error(error.message);
+		}
+	};
+
 	// Run getTodos whenever the page reloads
 	useEffect(() => {
 		getTodos();
@@ -51,7 +66,9 @@ const Todos = () => {
 								<button>Edit</button>
 							</td>
 							<td>
-								<button>Delete</button>
+								<button onClick={() => deleteTodo(todo.todo_id)} className="btn btn-danger">
+									Delete
+								</button>
 							</td>
 						</tr>
 					))}
