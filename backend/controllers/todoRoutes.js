@@ -2,6 +2,19 @@ const { Router } = require("express");
 const router = Router();
 const pool = require("../database/database.js"); // Enables querying w/ Postgres
 
+// Index
+router.get("/", async (req, res) => {
+	try {
+		// Grab all the todos from the database
+		const allTodos = await pool.query("SELECT * FROM todo");
+		console.log(allTodos.rows); // Within the todo object there is a property called rows which contains the todos
+		// Return all the todos as json data
+		res.json(allTodos.rows);
+	} catch (error) {
+		console.error(error.message);
+	}
+});
+
 // Create
 router.post("/", async (req, res) => {
 	try {
