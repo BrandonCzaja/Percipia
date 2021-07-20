@@ -54,6 +54,22 @@ router.put("/:id", async (req, res) => {
 	}
 });
 
+// Delete
+router.delete("/:id", async (req, res) => {
+	try {
+		// Grab the todo by id
+		const { id } = req.params;
+
+		// Make a delete query to Postgres, passing the id as the argument
+		const deleteTodo = await pool.query("DELETE FROM todo WHERE todo_id = $1", [id]);
+
+		// Return confirmation that the todo was deleted
+		res.json("Todo was deleted");
+	} catch (error) {
+		console.error(error.message);
+	}
+});
+
 // Show
 router.get("/:id", async (req, res) => {
 	try {
