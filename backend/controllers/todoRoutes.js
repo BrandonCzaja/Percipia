@@ -1,7 +1,6 @@
 const { Router } = require("express");
 const router = Router();
 const pool = require("../database/database.js"); // Enables querying w/ Postgres
-const e = require("express");
 
 // Index
 router.get("/", async (req, res) => {
