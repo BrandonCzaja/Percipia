@@ -4,7 +4,7 @@ import AddTodo from "./components/AddTodo.jsx";
 
 function App() {
 	return (
-		<div className="App">
+		<div className="container">
 			<AddTodo />
 			<Todos />
 		</div>

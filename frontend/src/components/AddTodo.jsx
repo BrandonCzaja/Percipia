@@ -25,7 +25,7 @@ const AddTodo = () => {
 		<>
 			<h1 className="text-center mt-5">Todo List</h1>
 			<form onSubmit={handleSubmit} className="d-flex mt-5">
-				<input type="text" value={todo.todo} onChange={(e) => setTodo(e.target.value)} placeholder="Add Todo" className="form-control" />
+				<input type="text" value={todo} onChange={(e) => setTodo(e.target.value)} placeholder="Add Todo" className="form-control" />
 				<button className="btn btn-success">Add Todo</button>
 			</form>
 		</>

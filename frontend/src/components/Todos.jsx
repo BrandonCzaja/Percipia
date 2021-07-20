@@ -1,24 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import EditTodo from "./EditTodo.jsx";
 
 const Todos = () => {
 	// Create state for the list of todos. Set to an empty array as the default value
 	const [todos, setTodos] = useState([]);
-
-	// Grab todos from the backend
-	const getTodos = async () => {
-		try {
-			// Make a fetch request to the backend to get the todos
-			const todos = await fetch("http://localhost:3000/todos");
-
-			// Save todos json data
-			const data = await todos.json();
-
-			// Set todos state to the backend json data
-			setTodos(data);
-		} catch (error) {
-			console.error(error.message);
-		}
-	};
+	console.log(`Todos.jsx Todos: ${todos}`);
 
 	// Delete a Todo
 	const deleteTodo = async (id) => {
@@ -35,6 +21,23 @@ const Todos = () => {
 		}
 	};
 
+	// Grab todos from the backend
+	const getTodos = async () => {
+		try {
+			// Make a fetch request to the backend to get the todos
+			const todos = await fetch("http://localhost:3000/todos");
+
+			// Save todos json data
+			const data = await todos.json();
+			console.log(data);
+
+			// Set todos state to the backend json data
+			setTodos(data);
+		} catch (error) {
+			console.error(error.message);
+		}
+	};
+
 	// Run getTodos whenever the page reloads
 	useEffect(() => {
 		getTodos();
@@ -42,8 +45,6 @@ const Todos = () => {
 
 	return (
 		<>
-			<h1>Todos</h1>
-
 			{/* Display Todos in a table */}
 			<table className="table table-striped">
 				{/* Column Titles */}
@@ -63,7 +64,7 @@ const Todos = () => {
 							<td>{todo.todo}</td>
 							<td>{todo.created_at}</td>
 							<td>
-								<button>Edit</button>
+								<EditTodo update={todo} />
 							</td>
 							<td>
 								<button onClick={() => deleteTodo(todo.todo_id)} className="btn btn-danger">
