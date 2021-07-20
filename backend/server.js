@@ -12,10 +12,10 @@ app.use(cors()); // Handles requests made from restricted domains
 // Router
 app.use("/todos", todoRouter);
 
-// Entry point
-app.get("/", (req, res) => {
-	res.redirect("/todos");
-});
+// // Entry point
+// app.get("/", (req, res) => {
+// 	res.redirect("/todos");
+// });
 
 // Listener
 app.listen(PORT, () => {

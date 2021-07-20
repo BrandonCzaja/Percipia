@@ -25,7 +25,7 @@ router.post("/", async (req, res) => {
 		const { todo } = req.body;
 
 		// Insert into the todo column the todo from req.body. Time stamp will be made automatically
-		const newTodo = await pool.query("INSERT INTO todo (todo) VALUES ($1) RETURNING *", [todo]);
+		const newTodo = await pool.query("INSERT INTO todo (todo) VALUES($1) RETURNING *", [todo]);
 
 		// Return the json data of the the todo that was just created
 		res.json(newTodo.rows[0]);
@@ -47,7 +47,7 @@ router.put("/:id", async (req, res) => {
 		const updateTodo = await pool.query("UPDATE todo SET todo = $1 WHERE todo_id = $2", [todo, id]);
 
 		// Return the updated todo json data
-		res.json(todo);
+		res.json("Todo was updated!");
 	} catch (error) {
 		console.error(error.message);
 	}
