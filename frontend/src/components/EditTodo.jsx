@@ -3,23 +3,21 @@ import React, { useState } from "react";
 const EditTodo = ({ update }) => {
 	console.log(update);
 
-	// Set state of the edit to the current todo value
+	// Set todo state to the prop update from Todo.jsx
 	const [todo, setTodo] = useState(update.todo);
-	console.log(`Edit: ${todo}`);
 
 	// Update Todo
 	const updateTodo = async (e) => {
 		e.preventDefault();
 		try {
 			const body = { todo };
-			console.log(`UpdateTodo() Body: ${body}`);
+
 			const response = await fetch(`http://localhost:3000/todos/${update.todo_id}`, {
 				method: "PUT",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(body)
 			});
 
-			console.log(`UpdateTodo Response: ${response}`);
 			window.location = "/";
 		} catch (error) {
 			console.error(error.message);
